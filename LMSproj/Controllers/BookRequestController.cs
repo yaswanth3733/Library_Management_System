@@ -50,7 +50,11 @@ namespace LMSproj.Controllers
 
                 return BadRequest("No available copies of this book.");
 
-
+            // Check if the user has any overdue books
+            bool hasOverdueBooks = await _context.BookIssues
+                .AnyAsync(b => b.UserId == requestDto.UserId && b.ReturnDate == null && b.DueDate < DateTime.UtcNow);
+            if (hasOverdueBooks)
+                return BadRequest("You have overdue books. Please return them before requesting new ones.");
 
             var bookRequest = new BookRequest
 
@@ -98,7 +102,10 @@ namespace LMSproj.Controllers
 
         {
 
-            var requests = await _context.BookRequests.ToListAsync();
+            var requests = await _context.BookRequests
+                .Include(r => r.Book)
+                .Include(r => r.User)
+                .ToListAsync();
 
 
 
@@ -110,7 +117,11 @@ namespace LMSproj.Controllers
 
                 UserId = r.UserId,
 
+                UserName = r.User.FullName,
+
                 BookId = r.BookId,
+
+                Title = r.Book.Title,
 
                 Status = r.Status
 
@@ -122,9 +133,44 @@ namespace LMSproj.Controllers
 
         }
 
+        [HttpGet("user/{userId}")]
+
+        [Authorize]
+
+        public async Task<ActionResult<IEnumerable<BookRequestDto>>> GetUserBookRequests(int userId)
+
+        {
+
+            var userRequests = await _context.BookRequests
+
+                .Where(r => r.UserId == userId)
+
+                .Include(r => r.Book)
+
+                .Select(r => new BookRequestDto
+
+                {
+
+                    RequestId = r.RequestId,
+
+                    Title = r.Book != null ? r.Book.Title : "UnKnown",  // ✅ Include book title
+
+                    Status = r.Status  // "Pending", "Accepted", "Rejected"
+
+                })
+
+                .ToListAsync();
+
+            if (!userRequests.Any())
+
+                return NotFound("No book requests found for this user.");
+
+            return Ok(userRequests);
+
+        }
 
 
-        
+
 
         [HttpPut("update/{requestId}")]
         [Authorize(Roles = "Admin")]
@@ -170,33 +216,21 @@ namespace LMSproj.Controllers
             return NoContent();
         }
 
-        // ✅ Delete a request (Admin only)
-
+        
         [HttpDelete("delete/{requestId}")]
-        [Authorize(Roles ="User")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> DeleteRequest(int requestId)
-
         {
-
             var request = await _context.BookRequests.FindAsync(requestId);
-
             if (request == null)
-
-                return NotFound();
-
-            if(request.Status == "Accepted")
+                return NotFound("Request not found.");
+            if (request.Status == "Accepted" || request.Status == "Rejected")
             {
-                return BadRequest("Cannot delete a book request after it has been accepted");
+                return BadRequest("Cannot delete a book request that has been accepted or rejected.");
             }
-
             _context.BookRequests.Remove(request);
-
             await _context.SaveChangesAsync();
-
-
-
             return NoContent();
-
         }
 
     }

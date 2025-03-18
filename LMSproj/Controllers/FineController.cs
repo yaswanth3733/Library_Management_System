@@ -22,7 +22,49 @@ namespace LMSproj.Controllers
         }
 
 
+        [HttpGet("all")]
 
+        [Authorize(Roles = "Admin")]
+
+        public async Task<ActionResult<IEnumerable<FineDto>>> GetAllFines()
+
+        {
+
+            var fines = await _context.Fines
+
+                .Include(f => f.BookIssue)
+
+                .ThenInclude(bi => bi.User)
+
+                .Include(bi => bi.BookIssue.Book) // Ensure Book Title is included
+
+                .ToListAsync();
+
+            var fineDtos = fines.Select(f => new FineDto
+
+            {
+
+                FineId = f.FineId,
+
+                IssueId = f.IssueId,
+
+                UserId = f.BookIssue.UserId,
+
+                UserName = f.BookIssue.User.FullName,
+
+                BookId = f.BookIssue.BookId,
+
+                Title = f.BookIssue.Book.Title,
+
+                FineAmount = f.FineAmount,
+
+                IsPaid = f.IsPaid
+
+            }).ToList();
+
+            return Ok(fineDtos);
+
+        }
         // ✅ 1. View Unpaid Fines for a User
 
         [HttpGet("user/{userId}")]
@@ -65,62 +107,62 @@ namespace LMSproj.Controllers
 
             }
 
-        [HttpGet("unpaid-fines")]
-        [Authorize(Roles ="Admin")]
-        public async Task<ActionResult<List<UserUnpaidFineDto>>> GetUsersWithUnpaidFines()
+        //[HttpGet("unpaid-fines")]
+        //[Authorize(Roles ="Admin")]
+        //public async Task<ActionResult<List<UserUnpaidFineDto>>> GetUsersWithUnpaidFines()
 
-        {
+        //{
 
-            var unpaidFines = await _context.BookIssues
+        //    var unpaidFines = await _context.BookIssues
 
-                .Where(b => b.FineAmount > 0 && !b.IsFinePaid)
+        //        .Where(b => b.FineAmount > 0 && !b.IsFinePaid)
 
-                .Select(b => new
+        //        .Select(b => new
 
-                {
+        //        {
 
-                    b.UserId,
+        //            b.UserId,
 
-                    b.User.FullName,
+        //            b.User.FullName,
 
-                    b.User.Email,
+        //            b.User.Email,
 
-                    b.FineAmount
+        //            b.FineAmount
 
-                })
+        //        })
 
-                .ToListAsync(); // ✅ Fetch first, then process
-
-
-
-            var groupedFines = unpaidFines
-
-                .GroupBy(b => b.UserId)
-
-                .Select(g => new UserUnpaidFineDto
-
-                {
-
-                    UserId = g.Key,
-
-                    FullName = g.First().FullName,
-
-                    Email = g.First().Email,
-
-                    TotalUnpaidFine = g.Sum(b => b.FineAmount)
-
-                })
-
-                .ToList(); // ✅ Process in-memory
+        //        .ToListAsync(); // ✅ Fetch first, then process
 
 
 
-            return Ok(groupedFines);
-        }
+        //    var groupedFines = unpaidFines
+
+        //        .GroupBy(b => b.UserId)
+
+        //        .Select(g => new UserUnpaidFineDto
+
+        //        {
+
+        //            UserId = g.Key,
+
+        //            FullName = g.First().FullName,
+
+        //            Email = g.First().Email,
+
+        //            TotalUnpaidFine = g.Sum(b => b.FineAmount)
+
+        //        })
+
+        //        .ToList(); // ✅ Process in-memory
+
+
+
+        //    return Ok(groupedFines);
+        //}
 
             // ✅ 2. Pay Fine for a Specific Issue
 
-            [HttpPost("pay/{issueId}")]
+        [HttpPost("pay/{issueId}")]
         [Authorize (Roles ="Admin")]
         public async Task<IActionResult> PayFine(int issueId)
 
@@ -155,7 +197,7 @@ namespace LMSproj.Controllers
                     fineobj.PaymentDate = DateTime.Now;
                     await _context.SaveChangesAsync();
 
-                return Ok("Fine paid successfully.");
+                return Ok(new { message = "Fine paid successfully." });
 
             }
         }

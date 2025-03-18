@@ -20,15 +20,22 @@ namespace LMSproj.Controllers
 
 
 
-        // GET: api/BookIssue/all
-
+        
         [HttpGet("all")]
+
         [Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<IEnumerable<BookIssueDto>>> GetAllBookIssues()
 
         {
 
-            var issues = await _context.BookIssues.ToListAsync();
+            var issues = await _context.BookIssues
+
+                .Include(issue => issue.Book)  // Include book details
+
+                .Include(issue => issue.User)  // Include user details
+
+                .ToListAsync();
 
             var issueDtos = issues.Select(issue => new BookIssueDto
 
@@ -38,7 +45,11 @@ namespace LMSproj.Controllers
 
                 UserId = issue.UserId,
 
+                UserName = issue.User.FullName,  // Assuming 'Name' is the username field
+
                 BookId = issue.BookId,
+
+                Title = issue.Book.Title,    // Fetch book title
 
                 IssueDate = issue.IssueDate,
 
@@ -50,10 +61,31 @@ namespace LMSproj.Controllers
 
             }).ToList();
 
-
-
             return Ok(issueDtos);
 
+        }
+
+        [HttpGet("user/{userId}")]
+        [Authorize (Roles ="User")]
+        public async Task<ActionResult<IEnumerable<BookIssueDto>>> GetBookIssuesByUser(int userId)
+        {
+            var issues = await _context.BookIssues
+                .Where(issue => issue.UserId == userId)
+                .Include(issue => issue.Book)
+                .Select(issue => new BookIssueDto
+                {
+                    IssueId = issue.IssueId,
+                    UserId = issue.UserId,
+                    BookId = issue.BookId,
+                    Title = issue.Book.Title,
+                    IssueDate = issue.IssueDate,
+                    DueDate = issue.DueDate,
+                    ReturnDate = issue.ReturnDate,
+                    FineAmount = issue.FineAmount,
+                    Status = issue.ReturnDate != null ? "Returned" : "Not Returned"
+                })
+                .ToListAsync();
+            return issues.Any() ? Ok(issues) : NotFound("No book issues found for this user.");
         }
 
         // PUT: api/BookIssue/return

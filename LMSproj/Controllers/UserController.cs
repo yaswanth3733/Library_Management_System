@@ -80,7 +80,12 @@ namespace LMSproj.Controllers
                     return Unauthorized("Invalid email or password.");
 
                 var token = GenerateJwtToken(user);
-                return Ok(new { token });
+                return Ok(new { 
+                    token = token,
+                    userId = user.UserId,
+                    role = user.Role,
+                    userName = user.FullName
+                });
             }
             catch (Exception ex)
             {
@@ -109,7 +114,7 @@ namespace LMSproj.Controllers
         }
 
         [HttpGet("all")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
             try
@@ -133,7 +138,7 @@ namespace LMSproj.Controllers
 
         // ✅ Retrieve User by ID
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<UserDto>> GetUserById(int id)
         {
             try
@@ -156,32 +161,133 @@ namespace LMSproj.Controllers
             }
         }
         // ✅ Update User Details
-        [HttpPut("update/{id}")]
-        [Authorize]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] RegisterUserDto updateDto)
+        //[HttpPut("update/{id}")]
+        //[Authorize]
+        //public async Task<IActionResult> UpdateUser(int id, [FromBody] RegisterUserDto updateDto)
+        //{
+        //    try
+        //    {
+        //        var user = await _context.Users.FindAsync(id);
+        //        if (user == null) return NotFound("User not found");
+
+
+        //        // Prevent updating email to an already existing email
+        //        if (user.Email != updateDto.Email && await _context.Users.AnyAsync(u => u.Email == updateDto.Email))
+        //            return BadRequest("Email is already in use.");
+
+        //        user.FullName = updateDto.FullName;
+        //        user.Email = updateDto.Email;
+        //        if (!string.IsNullOrWhiteSpace(updateDto.Password))
+        //            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updateDto.Password);
+
+        //        await _context.SaveChangesAsync();
+        //        return Ok("User details updated successfully");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+
+        //    }
+        //}
+        //[HttpPut("update/{id}")]
+
+        //[Authorize]
+
+        //public async Task<IActionResult> UpdateUser(int id, [FromBody] RegisterUserDto updateDto)
+
+        //{
+
+        //    try
+
+        //    {
+
+        //        if (updateDto == null)
+
+        //        {
+
+        //            return BadRequest("Request body is empty.");
+
+        //        }
+
+        //        Console.WriteLine($"Received Update Request: FullName: {updateDto.FullName}, Email: {updateDto.Email}, Password: {(string.IsNullOrEmpty(updateDto.Password) ? "No Change" : "Updated")}");
+
+        //        var user = await _context.Users.FindAsync(id);
+
+        //        if (user == null)
+
+        //        {
+
+        //            return NotFound("User not found");
+
+        //        }
+
+        //        // Prevent updating email to an already existing email
+
+        //        if (user.Email != updateDto.Email && await _context.Users.AnyAsync(u => u.Email == updateDto.Email))
+
+        //        {
+
+        //            return BadRequest("Email is already in use.");
+
+        //        }
+
+        //        user.FullName = updateDto.FullName;
+
+        //        user.Email = updateDto.Email;
+
+        //        if (!string.IsNullOrWhiteSpace(updateDto.Password))
+
+        //        {
+
+        //            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updateDto.Password);
+
+        //        }
+
+        //        await _context.SaveChangesAsync();
+
+        //        return Ok("User details updated successfully");
+
+        //    }
+
+        //    catch (Exception ex)
+
+        //    {
+
+        //        Console.WriteLine($"Error updating user: {ex.Message}");
+
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+
+        //    }
+
+        //}
+
+        [HttpDelete("delete/{userId}")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> DeleteUser(int userId)
         {
-            try
-            {
-                var user = await _context.Users.FindAsync(id);
-                if (user == null) return NotFound("User not found");
-
-                // Prevent updating email to an already existing email
-                if (user.Email != updateDto.Email && await _context.Users.AnyAsync(u => u.Email == updateDto.Email))
-                    return BadRequest("Email is already in use.");
-
-                user.FullName = updateDto.FullName;
-                user.Email = updateDto.Email;
-                if (!string.IsNullOrWhiteSpace(updateDto.Password))
-                    user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updateDto.Password);
-
-                await _context.SaveChangesAsync();
-                return Ok("User details updated successfully");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
-
-            }
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+                return NotFound("User not found.");
+            // Check if the user has any pending book returns
+            bool hasPendingReturns = await _context.BookIssues
+                .AnyAsync(bi => bi.UserId == userId && bi.ReturnDate == null);
+            if (hasPendingReturns)
+                return BadRequest("Cannot delete account. You have pending book returns.");
+            // Check if the user has any unpaid fines
+            bool hasPendingFines = await _context.Fines
+                .AnyAsync(f => f.BookIssue.UserId == userId && !f.IsPaid);
+            if (hasPendingFines)
+                return BadRequest("Cannot delete account. You have unpaid fines.");
+            // Remove user's book requests if any
+            var userRequests = _context.BookRequests.Where(br => br.UserId == userId);
+            _context.BookRequests.RemoveRange(userRequests);
+            // Remove user's activity logs
+            var userLogs = _context.UserActivityLogs.Where(log => log.Username == user.FullName);
+            _context.UserActivityLogs.RemoveRange(userLogs);
+            // Remove user account
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return Ok("User account deleted successfully.");
         }
 
     }

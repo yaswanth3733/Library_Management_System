@@ -1,0 +1,11 @@
+<div class="overdue-books-container">
+    <h2>Your Overdue Books</h2>
+    <ul *ngIf="overdueBooks.length > 0; else noOverdue">
+    <li *ngFor="let book of overdueBooks">
+    <strong>{{ book.title }}</strong> - Due Date: {{ book.dueDate | date:'mediumDate' }}
+    </li>
+    </ul>
+    <ng-template #noOverdue>
+    <p>No overdue books.</p>
+    </ng-template>
+    </div>

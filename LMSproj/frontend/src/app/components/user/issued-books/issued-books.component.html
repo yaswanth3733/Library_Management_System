@@ -1,0 +1,27 @@
+<!-- <div class="issued-books-container">
+    <h2>📚 Your Issued Books</h2>
+    <p *ngIf="issuedBooks.length === 0" class="no-books">No books issued.</p>
+    <div class="book-card" *ngFor="let book of issuedBooks">
+    <h3>{{ book.title }}</h3>
+    <p><strong>Issue Date:</strong> {{ book.issueDate | date:'longDate' }}</p>
+    <p><strong>Due Date:</strong> {{ book.dueDate | date:'longDate' }}</p>
+    <p><strong>Return Date:</strong> {{ book.returnDate ? (book.returnDate | date:'longDate') : 'Not Returned' }}</p>
+    <p [class.fine-due]="book.fineAmount > 0"><strong>Fine:</strong> ₹{{ book.fineAmount }}</p>
+    </div>
+    </div> -->
+
+    <div class="issued-books-container">
+        <h2>📚 Your Issued Books</h2>
+        <!-- Toggle Filter Button -->
+        <button (click)="toggleNotReturned()">
+           {{ notReturned ? 'Show All Books' : 'Show Not Returned Books' }}
+        </button>
+        <p *ngIf="filteredBooks.length === 0" class="no-books">No books found.</p>
+        <div class="book-card" *ngFor="let book of filteredBooks">
+        <h3>{{ book.title }}</h3>
+        <p><strong>Issue Date:</strong> {{ book.issueDate | date:'longDate' }}</p>
+        <p><strong>Due Date:</strong> {{ book.dueDate | date:'longDate' }}</p>
+        <p><strong>Return Date:</strong> {{ book.returnDate ? (book.returnDate | date:'longDate') : 'Not Returned' }}</p>
+        <p [class.fine-due]="book.fineAmount > 0"><strong>Fine:</strong> ₹{{ book.fineAmount }}</p>
+        </div>
+        </div>

@@ -1,0 +1,50 @@
+<div class="manage-books-container">
+    <div class="left-section">
+    <h2>➕ Add New Book</h2>
+    <form class="add-book-form">
+    <input type="text" [(ngModel)]="newBook.title" placeholder="Title" name="title">
+    <input type="text" [(ngModel)]="newBook.author" placeholder="Author" name="author">
+    <input type="text" [(ngModel)]="newBook.isbn" placeholder="ISBN" name="isbn">
+    <input type="number" [(ngModel)]="newBook.totalCopies" placeholder="Total Copies" name="totalCopies">
+    <input type="text" [(ngModel)]="newBook.category" placeholder="Category" name="category">
+    <button (click)="addBook()">📚 Add Book</button>
+    </form>
+    </div>
+    <div class="right-section">
+    <h2>🔍 Search Books</h2>
+    <div class="search-bar">
+    <input type="text" [(ngModel)]="searchTitle" placeholder="Search by Title" name="searchTitle">
+    <input type="text" [(ngModel)]="searchCategory" placeholder="Search by Category" name="searchCategory">
+    <button (click)="searchBooks()">🔎 Search</button>
+    </div>
+    <h2>📖 Available Books</h2>
+    <div class="book-list">
+    <div *ngFor="let book of books" class="book-card">
+    <h3>{{ book.title }}</h3>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+    <p><strong>Available:</strong> {{ book.availableCopies }} / {{ book.totalCopies }}</p>
+    <p><strong>Category:</strong> {{ book.category }}</p>
+    <div class="book-buttons">
+    <button class="edit-btn" (click)="editBook(book)">✏ Edit</button>
+    <button class="delete-btn" (click)="confirmDelete(book.bookId)">🗑 Delete</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- Edit Book Modal -->
+    <div class="modal-overlay" *ngIf="selectedBook">
+    <div class="modal-content">
+    <h3>✏ Edit Book</h3>
+    <form>
+    <input type="text" [(ngModel)]="selectedBook.title" name="title">
+    <input type="text" [(ngModel)]="selectedBook.author" name="author">
+    <input type="text" [(ngModel)]="selectedBook.isbn" name="isbn">
+    <input type="number" [(ngModel)]="selectedBook.totalCopies" name="totalCopies">
+    <input type="text" [(ngModel)]="selectedBook.category" name="category">
+    <button (click)="updateBook()">✔ Update</button>
+    <button class="cancel-btn" (click)="selectedBook = null">✖ Cancel</button>
+    </form>
+    </div>
+    </div>
+    </div>

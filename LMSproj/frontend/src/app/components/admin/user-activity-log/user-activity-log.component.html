@@ -1,0 +1,53 @@
+<!-- 
+    <div class="activity-log-container">
+        <h2>📜 User Activity Logs</h2>
+        <div class="search-bar">
+        <input type="text" [(ngModel)]="searchUsername" placeholder="Search by username">
+        <button (click)="searchByUsername()">🔍 Search</button>
+        </div>
+        <div class="filter-buttons">
+        <button (click)="fetchAllLogs()">📋 All Logs</button>
+        <button (click)="fetchBorrowedBooks()">📖 Borrowed Books</button>
+        <button (click)="fetchReturnedBooks()">🔄 Returned Books</button>
+        </div>
+        <div class="activity-cards">
+        <div class="activity-card" *ngFor="let log of logs">
+        <h3>{{ log.action }} 📖</h3>
+        <p><strong>User:</strong> {{ log.username }}</p>
+        <p><strong>Book:</strong> {{ log.bookName }}</p>
+        <p><strong>Details:</strong> {{ log.description }}</p>
+        <p><strong>Date:</strong> {{ log.timestamp | date:'medium' }}</p>
+        </div>
+        </div>
+        <p *ngIf="logs.length === 0" class="no-logs">No activity logs available.</p>
+        </div> -->
+
+
+        <div class="activity-log-container">
+            <h2>📜 User Activity Logs</h2>
+            <!-- 🔍 Search Bar -->
+            <div class="search-bar">
+            <input type="text" [(ngModel)]="searchUsername" placeholder="Search by username">
+            <button (click)="searchByUsername()">🔍 Search</button>
+            </div>
+            <!-- 📂 Filter Buttons -->
+            <div class="filter-buttons">
+            <button (click)="fetchAllLogs()">📋 All Logs</button>
+            <button (click)="fetchBorrowedBooks()">📖 Borrowed Books</button>
+            <button (click)="fetchReturnedBooks()">🔄 Returned Books</button>
+            <button (click)="fetchOverdueBooks()">⏳ Overdue Books</button>
+            </div>
+            <!-- 🎭 Activity Cards -->
+            <div class="activity-cards">
+            <div class="activity-card" *ngFor="let log of filteredLogs">
+            <h3>{{ log.action }} 📖</h3>
+            <p><strong>User:</strong> {{ log.username }}</p>
+            <p><strong>Book:</strong> {{ log.bookName }}</p>
+            <p><strong>Due Date:</strong> {{ log.dueDate | date:'medium' }}</p>
+            <p><strong>Details:</strong> {{ log.description }}</p>
+            <p><strong>Date:</strong> {{ log.timestamp | date:'medium' }}</p>
+            </div>
+            </div>
+            <!-- No Activity Found -->
+            <p *ngIf="filteredLogs.length === 0" class="no-logs">No overdue books available.</p>
+            </div>

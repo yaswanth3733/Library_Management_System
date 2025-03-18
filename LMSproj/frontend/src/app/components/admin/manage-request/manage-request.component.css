@@ -1,0 +1,147 @@
+.manage-requests-container {
+
+    width: 90%;
+  
+    margin: auto;
+  
+    padding: 20px;
+  
+    background: white;
+  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
+    border-radius: 10px;
+  
+  }
+  
+  h2 {
+  
+    text-align: center;
+  
+    color: #333;
+  
+  }
+  
+  .requests-table {
+  
+    width: 100%;
+  
+    border-collapse: collapse;
+  
+    margin-top: 20px;
+  
+  }
+  
+  .requests-table th, .requests-table td {
+  
+    border: 1px solid #ddd;
+  
+    padding: 10px;
+  
+    text-align: center;
+  
+  }
+  
+  .requests-table th {
+  
+    background-color: #007bff;
+  
+    color: white;
+  
+  }
+  
+  .status {
+  
+    font-weight: bold;
+  
+    padding: 5px;
+  
+    border-radius: 5px;
+  
+  }
+  
+  .status.pending {
+  
+    color: orange;
+  
+  }
+  
+  .status.accepted {
+  
+    color: green;
+  
+  }
+  
+  .status.rejected {
+  
+    color: red;
+  
+  }
+  
+  .accept-btn, .reject-btn {
+  
+    padding: 8px 15px;
+  
+    font-size: 14px;
+  
+    font-weight: bold;
+  
+    border: none;
+  
+    border-radius: 5px;
+  
+    cursor: pointer;
+  
+    margin: 5px;
+  
+  }
+  
+  .accept-btn {
+  
+    background-color: #28a745;
+  
+    color: white;
+  
+  }
+  
+  .accept-btn:disabled {
+  
+    background-color: #a0dca0;
+  
+    cursor: not-allowed;
+  
+  }
+  
+  .reject-btn {
+  
+    background-color: #dc3545;
+  
+    color: white;
+  
+  }
+  
+  .reject-btn:disabled {
+  
+    background-color: #e0a0a0;
+  
+    cursor: not-allowed;
+  
+  }
+  
+  .error-message {
+  
+    color: red;
+  
+    text-align: center;
+  
+  }
+  
+  .no-requests {
+  
+    text-align: center;
+  
+    font-size: 18px;
+  
+    color: gray;
+  
+  } 

@@ -1,0 +1,72 @@
+    <nav class="navbar">
+            <div class="container">
+            <a class="logo" routerLink="/">Library LMS</a>
+            <div class="navbar-links">
+            <a *ngIf="!isLoggedIn" (click)="navigateTo('/register')">Register</a>
+            <a *ngIf="!isLoggedIn" (click)="navigateTo('/login')">Login</a>
+            <a *ngIf="!isLoggedIn" (click)="navigateTo('/about-us')">About us</a>
+            <a *ngIf="isLoggedIn && userRole === 'User'" (click)="navigateTo('/requests')">My Requests</a>
+            <a *ngIf="isLoggedIn && userRole === 'User'" (click)="navigateTo('/request-book')">Request a Book</a>
+            <a *ngIf="isLoggedIn && userRole === 'User'" (click)="navigateTo('/issued-books')">Issued Books</a>
+            <a *ngIf="isLoggedIn && userRole === 'User'" (click)="navigateTo('/overdue-books')">Overdue Books</a>
+            <a *ngIf="isLoggedIn && userRole === 'Admin'" (click)="navigateTo('/manage-requests')">Manage Requests</a>
+            <a *ngIf="isLoggedIn && userRole === 'Admin'" (click)="navigateTo('/book-issues')">Book Issues</a>
+            <a *ngIf="isLoggedIn && userRole === 'Admin'" (click)="navigateTo('/pay-fines')">Pay Fine</a>
+            <a *ngIf="isLoggedIn && userRole === 'Admin'" (click)="navigateTo('/manage-books')">Manage Books</a>
+            <a *ngIf="isLoggedIn && userRole === 'Admin'" (click)="navigateTo('/user-activity')">User Data</a>
+            <div class="dropdown" *ngIf="isLoggedIn && userRole === 'User'">
+            <button class="user-btn">{{ userName }}</button>
+            <div class="dropdown-content">
+            <button class="delete-btn" (click)="confirmDelete()">❌ Delete Account</button>
+            <button class="logout-btn" (click)="logout()">🚪 Logout</button>
+            </div>
+            </div>
+            <a *ngIf="isLoggedIn && userRole === 'Admin'" (click)="logout()">Logout</a>
+            </div>
+            </div>
+            </nav>
+
+        <div class="welcome-section">
+        <div class="container">
+        <h1>Welcome to Library Management System</h1>
+        <p>Your gateway to a world of knowledge. Discover, request, and explore our vast collection of books.</p>
+        </div>
+        </div>
+
+        <div class="featured-image-section">
+            <!-- <img src="../../../assets/lib.jpg"  class="featured-image"> -->
+                <div class="overlay-content">
+                <h2>Discover Our Digital Collection</h2>
+                <p>Access thousands of e-books, audiobooks, and research materials from anywhere, anytime. Our digital library brings knowledge to your fingertips.</p>
+                <a (click)="navigateTo('/about-us')" class="cta-button">Explore Now</a>
+                </div>
+        </div>
+            <div class="services-section">
+                <div class="container">
+                <div class="section-title">
+                <h2>Our Services</h2>
+                <p>We provide a comprehensive range of services to meet all your literary and academic needs.</p>
+                </div>
+                <div class="services-grid">
+                <div class="service-card">
+                <div class="service-icon">📚</div>
+                <h3>Book Reservations</h3>
+                <p>Reserve books in advance and get notified when they're ready for pickup. Our streamlined reservation system makes borrowing hassle-free.</p>
+                <!-- <a href="/services/reservations" class="service-link">Learn More</a> -->
+                </div>
+                <div class="service-card">
+                <div class="service-icon">💻</div>
+                <h3>Computer Access</h3>
+                <p>Use our computer facilities for research, assignments, or personal work. High-speed internet and essential software available at all terminals.</p>
+                <!-- <a href="/services/computers" class="service-link">Learn More</a> -->
+                </div>
+                <div class="service-card">
+                <div class="service-icon">🔍</div>
+                <h3>Research Assistance</h3>
+                <p>Get expert help with research projects, citations, and finding reliable sources. Our librarians are trained to assist with academic inquiries.</p>
+                <!-- <a href="/services/research" class="service-link">Learn More</a> -->
+                </div>
+                </div>
+                </div>
+                </div>
+                

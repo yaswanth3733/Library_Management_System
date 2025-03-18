@@ -21,8 +21,10 @@
         public int IssueId { get; set; }
 
         public int UserId { get; set; }
-
+        public string UserName { get; set; }
         public int BookId { get; set; }
+
+        public string Title { get; set; }
 
         public DateTime IssueDate { get; set; }  // ✅ Borrowed Date
 
@@ -30,6 +32,8 @@
 
         public DateTime? ReturnDate { get; set; }  // ✅ Returned Date
         public decimal FineAmount { get; set; }  // ✅ Fine Paid
+
+        public string Status { get; set; }
 
 
     }

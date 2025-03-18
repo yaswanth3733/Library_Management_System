@@ -1,0 +1,232 @@
+/* .request-book-container {
+
+    width: 80%; 
+  
+    margin: auto;
+  
+    padding: 20px;
+  
+    background: white;
+  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
+    border-radius: 10px;
+  
+  }
+  
+  h2 {
+  
+    text-align: center;
+  
+    color: #333;
+  
+    font-size: 24px; 
+  
+    margin-bottom: 20px;
+  
+  }
+  
+  .books-table {
+  
+    width: 100%;
+  
+    border-collapse: collapse;
+  
+    margin-top: 20px;
+  
+    font-size: 18px; 
+  
+  }
+  
+  .books-table th, .books-table td {
+  
+    border: 1px solid #ddd;
+  
+    padding: 15px; 
+  
+    text-align: left;
+  
+  }
+  
+  .books-table th {
+  
+    background-color: #007bff;
+  
+    color: white;
+  
+  }
+  
+  .books-table td {
+  
+    background-color: #f9f9f9; 
+  
+  }
+  
+  .request-btn {
+  
+    padding: 12px 18px; 
+  
+    font-size: 16px;
+  
+    font-weight: bold;
+  
+    background-color: #007bff;
+  
+    color: white;
+  
+    border: none;
+  
+    border-radius: 5px;
+  
+    cursor: pointer;
+  
+    transition: background 0.3s ease;
+  
+  }
+  
+  .request-btn:hover {
+  
+    background-color: #0056b3;
+  
+  }
+  
+  .request-btn:disabled {
+  
+    background-color: gray;
+  
+    cursor: not-allowed;
+  
+  }  */
+
+  /* ............................................................... */
+  /* 🔍 Search Bar Styling */
+
+.search-container {
+
+  display: flex;
+
+  justify-content: center;
+
+  margin-bottom: 15px;
+
+}
+
+.search-container input {
+
+  padding: 10px;
+
+  margin: 5px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 5px;
+
+  font-size: 16px;
+
+}
+
+.search-container button {
+
+  padding: 10px 15px;
+
+  margin-left: 10px;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  background-color: #007bff;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  transition: background 0.3s ease;
+
+}
+
+.search-container button:hover {
+
+  background-color: #0056b3;
+
+}
+
+/* Table Styling */
+
+.books-table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  margin-top: 20px;
+
+  font-size: 18px;
+
+}
+
+.books-table th, .books-table td {
+
+  border: 1px solid #ddd;
+
+  padding: 15px;
+
+  text-align: left;
+
+}
+
+.books-table th {
+
+  background-color: #007bff;
+
+  color: white;
+
+}
+
+.books-table td {
+
+  background-color: #f9f9f9;
+
+}
+
+/* Request Button */
+
+.request-btn {
+
+  padding: 12px 18px;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  background-color: #007bff;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  transition: background 0.3s ease;
+
+}
+
+.request-btn:hover {
+
+  background-color: #0056b3;
+
+}
+
+.request-btn:disabled {
+
+  background-color: gray;
+
+  cursor: not-allowed;
+
+} 

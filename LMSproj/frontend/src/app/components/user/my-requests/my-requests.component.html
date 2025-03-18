@@ -1,0 +1,28 @@
+<div class="my-requests-container">
+    <h2>📚 My Book Requests</h2>
+    <!-- Show message if no requests -->
+    <p *ngIf="userRequests.length === 0" class="no-requests">No book requests found.</p>
+    <!-- Table to display book requests -->
+    <table *ngIf="userRequests.length > 0" class="requests-table">
+    <thead>
+    <tr>
+    <th>Book Title</th>
+    <th>Status</th>
+    <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let request of userRequests">
+    <td>{{ request.title }}</td>
+    <td>
+    <span class="status pending" *ngIf="request.status === 'Pending'">⏳ Pending</span>
+    <span class="status accepted" *ngIf="request.status === 'Accepted'">✅ Accepted</span>
+    <span class="status rejected" *ngIf="request.status === 'Rejected'">❌ Rejected</span>
+    </td>
+    <td>
+        <button *ngIf="request.status === 'Pending'" (click) = "deleteRequest(request.requestId)" class="delete-btn">Delete</button>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div> 

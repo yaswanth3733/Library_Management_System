@@ -1,0 +1,37 @@
+
+    <div class="request-book-container">
+        <h2>📚 Available Books</h2>
+        <!-- 🔍 Search Bar -->
+        <div class="search-container">
+        <input type="text" [(ngModel)]="searchTitle" placeholder="Search by title">
+        <input type="text" [(ngModel)]="searchCategory" placeholder="Search by category">
+        <button (click)="searchBooks()">Search</button>
+        </div>
+        <!-- Show message if no books are available -->
+        <p *ngIf="availableBooks.length === 0" class="no-books">No books available.</p>
+        <!-- Table to display books -->
+        <table *ngIf="availableBooks.length > 0" class="books-table">
+        <thead>
+        <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>Available Copies</th>
+        <th>Request</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let book of availableBooks">
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.availableCopies }}</td>
+        <td>
+        <button class="request-btn" (click)="requestBook(book.bookId)" [disabled]="book.availableCopies === 0">
+                               Request Book
+        </button>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </div>

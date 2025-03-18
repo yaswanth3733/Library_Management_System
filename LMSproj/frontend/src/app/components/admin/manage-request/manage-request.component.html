@@ -1,0 +1,45 @@
+
+<div class="manage-requests-container">
+    <h2>📋 Manage All Book Requests</h2>
+    <p *ngIf="isLoading">Loading book requests...</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p *ngIf="!isLoading && bookRequests.length === 0" class="no-requests">No book requests found.</p>
+    <table *ngIf="bookRequests.length > 0" class="requests-table">
+    <thead>
+    <tr>
+    <th>Request ID</th>
+    <th>Book Title</th>
+    <th>User Name</th>
+    <th>Status</th>
+    <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let request of bookRequests">
+    <td>{{ request.requestId }}</td>
+    <td>{{ request.title }}</td>
+    <td>{{ request.userName }}</td>
+    <td>
+    <span class="status pending" *ngIf="request.status === 'Pending'">⏳ Pending</span>
+    <span class="status accepted" *ngIf="request.status === 'Accepted'">✅ Accepted</span>
+    <span class="status rejected" *ngIf="request.status === 'Rejected'">❌ Rejected</span>
+    </td>
+    <td>
+    <button class="accept-btn" (click)="updateRequestStatus(request.requestId, 'Accepted')" 
+    
+                      [disabled]="request.status !== 'Pending'">
+    
+                ✅ Accept
+    </button>
+    <button class="reject-btn" (click)="updateRequestStatus(request.requestId, 'Rejected')" 
+    
+                      [disabled]="request.status !== 'Pending'">
+    
+                ❌ Reject
+    </button>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div> 
+        

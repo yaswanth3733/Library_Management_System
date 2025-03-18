@@ -1,0 +1,126 @@
+
+/* Container */
+
+.my-requests-container {
+
+    max-width: 800px;
+  
+    margin: 50px auto;
+  
+    padding: 20px;
+  
+    background: white;
+  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+    border-radius: 8px;
+  
+    text-align: center;
+  
+  }
+  
+  /* Heading */
+  
+  .my-requests-container h2 {
+  
+    color: #333;
+  
+    font-size: 24px;
+  
+    margin-bottom: 15px;
+  
+  }
+  
+  /* No requests message */
+  
+  .no-requests {
+  
+    font-size: 16px;
+  
+    color: #666;
+  
+    margin-top: 20px;
+  
+  }
+  
+  /* Table */
+  
+  .requests-table {
+  
+    width: 100%;
+  
+    border-collapse: collapse;
+  
+    margin-top: 20px;
+  
+  }
+  
+  .requests-table th, .requests-table td {
+  
+    padding: 12px;
+  
+    text-align: left;
+  
+    border-bottom: 1px solid #ddd;
+  
+  }
+  
+  .requests-table th {
+  
+    background: #007bff;
+  
+    color: white;
+  
+    text-transform: uppercase;
+  
+  }
+  
+  /* Status badges */
+  
+  .status {
+  
+    font-weight: bold;
+  
+    padding: 5px 10px;
+  
+    border-radius: 5px;
+  
+    display: inline-block;
+  
+  }
+  
+  .status.pending {
+  
+    background: #ffc107;
+  
+    color: #333;
+  
+  }
+  
+  .status.accepted {
+  
+    background: #28a745;
+  
+    color: white;
+  
+  }
+  
+  .status.rejected {
+  
+    background: #dc3545;
+  
+    color: white;
+  
+  } 
+  .delete-btn{
+    background-color :red;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+    transition:background 0.3s;
+  }
+  .delete-btn:hover{
+    background-color: darkred;
+  }

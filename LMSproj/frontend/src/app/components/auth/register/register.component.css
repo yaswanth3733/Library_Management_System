@@ -1,0 +1,71 @@
+/* Center the form */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #007bff, #6610f2);
+   }
+   /* Form box */
+   .register-box {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    text-align: center;
+   }
+   /* Title */
+   .register-box h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+   }
+   /* Input fields */
+   .register-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+   }
+   /* Role dropdown */
+   .register-box select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+   }
+   /* Register button */
+   .register-box button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+   }
+   .register-box button:hover {
+    background: #0056b3;
+   }
+   /* Already have an account? */
+   .register-box p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+   }
+   .register-box a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+   }
+   .register-box a:hover {
+    text-decoration: underline;
+   }

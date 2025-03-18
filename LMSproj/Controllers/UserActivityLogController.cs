@@ -134,6 +134,27 @@ namespace LMSproj.Controllers
             }
 
         }
+        [HttpGet("borrowed/{username}")]
+        public IActionResult GetBorrowedBooksByUsername(string username)
+        {
+            var borrowedBooks = _context.UserActivityLogs
+                .Where(log => log.Username == username && log.Action == "Borrowed")
+                .ToList();
+            if (borrowedBooks.Count == 0)
+                return NotFound($"No borrowed books found for user: {username}");
+            return Ok(borrowedBooks);
+        }
+        [HttpGet("returned/{username}")]
+        public IActionResult GetReturnedBooksByUsername(string username)
+        {
+            var returnedBooks = _context.UserActivityLogs
+                .Where(log => log.Username == username && log.Action == "Returned")
+                .ToList();
+            if (returnedBooks.Count == 0)
+                return NotFound($"No returned books found for user: {username}");
+            return Ok(returnedBooks);
+        }
+        
     }
 }
 

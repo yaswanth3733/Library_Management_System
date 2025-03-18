@@ -1,0 +1,64 @@
+<!-- <div class="pay-fine-container">
+    <h2>📌 Manage Fines</h2>
+    <p *ngIf="fines.length === 0" class="no-fines">No fines found.</p>
+    <table *ngIf="fines.length > 0" class="fines-table">
+    <thead>
+    <tr>
+    <th>User</th>
+    <th>Book Title</th>
+    <th>Fine Amount</th>
+    <th>Status</th>
+    <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let fine of fines">
+    <td>{{ fine.userName }}</td>
+    <td>{{ fine.title }}</td>
+    <td>₹{{ fine.fineAmount }}</td>
+    <td [class.paid]="fine.isPaid" [class.unpaid]="!fine.isPaid">
+                       {{ fine.isPaid ? 'Paid' : 'Unpaid' }}
+    </td>
+    <td>
+    <button *ngIf="!fine.isPaid" (click)="payFine(fine.issueId)">Pay</button>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div> -->
+    <div class="pay-fine-container">
+        <h2>📌 Manage Fines</h2>
+        <!-- Search & Filter Section -->
+        <div class="filter-container">
+        <input type="text" [(ngModel)]="searchText" (input)="applyFilter()" placeholder="🔍 Search by username" class="search-box"/>
+        <label class="checkbox-label">
+        <input type="checkbox" [(ngModel)]="showUnpaidFines" (change)="applyFilter()"> Show Unpaid Fines Only
+        </label>
+        </div>
+        <p *ngIf="filteredFines.length === 0" class="no-fines">No fines found.</p>
+        <table *ngIf="filteredFines.length > 0" class="fines-table">
+        <thead>
+        <tr>
+        <th>User</th>
+        <th>Book Title</th>
+        <th>Fine Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let fine of filteredFines">
+        <td>{{ fine.userName }}</td>
+        <td>{{ fine.title }}</td>
+        <td>₹{{ fine.fineAmount }}</td>
+        <td [class.paid]="fine.isPaid" [class.unpaid]="!fine.isPaid">
+        
+                            {{ fine.isPaid ? 'Paid' : 'Unpaid' }}
+        </td>
+        <td>
+        <button *ngIf="!fine.isPaid" (click)="payFine(fine.issueId)">Pay</button>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </div> 

@@ -1,0 +1,104 @@
+.container {
+
+    max-width: 900px;
+  
+    margin: auto;
+  
+    text-align: center;
+  
+  }
+  
+  .table {
+  
+    width: 100%;
+  
+    border-collapse: collapse;
+  
+  }
+  
+  th, td {
+  
+    padding: 10px;
+  
+    border: 1px solid #ddd;
+  
+  }
+  
+  th {
+  
+    background-color: #007bff;
+  
+    color: white;
+  
+  }
+  
+  button {
+  
+    background-color: #28a745;
+  
+    color: white;
+  
+    border: none;
+  
+    padding: 5px 10px;
+  
+    cursor: pointer;
+  
+  }
+  
+  button:disabled {
+  
+    background-color: #ccc;
+  
+  } 
+  /* Center align search box */
+
+.search-container {
+
+  text-align: center;
+
+  margin-bottom: 15px;
+
+}
+
+/* Stylish Search Box */
+
+.search-box {
+
+  width: 50%;
+
+  padding: 10px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 5px;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition: 0.3s;
+
+}
+
+/* Search Box Focus Effect */
+
+.search-box:focus {
+
+  border-color: #007bff;
+
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+
+}
+
+/* Responsive: Adjust search box on small screens */
+
+@media (max-width: 768px) {
+
+  .search-box {
+
+      width: 90%;
+
+  }
+
+} 

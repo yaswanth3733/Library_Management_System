@@ -1,0 +1,67 @@
+<!-- <div class="register-container">
+     <div class="register-box">
+     <h2>Register</h2>
+     <input type="text" placeholder="Full Name" [(ngModel)]="registerData.fullName" required>
+     <input type="email" placeholder="Email" [(ngModel)]="registerData.email" required>
+     <input type="password" placeholder="Password" [(ngModel)]="registerData.password" required>
+     <select [(ngModel)]="registerData.role">
+     <option value="User">User</option>
+     <option value="Admin">Admin</option>
+     </select>
+     <button (click)="OnRegister()">Register</button>
+     <p>Already have an account? <a routerLink="/login">Login</a></p>
+     </div>
+     </div> -->
+     <div class="register-container">
+          <div class="register-box">
+          <h2>Register</h2>
+          <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <!-- Full Name Field -->
+          <div>
+          <input type="text" placeholder="Full Name" formControlName="fullName" />
+          <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched" class="error">
+          
+                    Full Name is required.
+          </div>
+          </div>
+          <!-- Email Field -->
+          <div>
+          <input type="email" placeholder="Email" formControlName="email" />
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+          <div *ngIf="registerForm.get('email')?.errors?.['required']">
+          
+                      Email is required.
+          </div>
+          <div *ngIf="registerForm.get('email')?.errors?.['email']">
+          
+                      Enter a valid email.
+          </div>
+          </div>
+          </div>
+          <!-- Password Field -->
+          <div>
+          <input type="password" placeholder="Password" formControlName="password" />
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error">
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">
+          
+                      Password is required.
+          </div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+          
+                      Password must be at least 6 characters.
+          </div>
+          </div>
+          </div>
+          <!-- Role Selection -->
+          <div>
+          <select formControlName="role">
+          <option value="User">User</option>
+          <option value="Admin">Admin</option>
+          </select>
+          </div>
+          <!-- Submit Button -->
+          <button type="submit">Register</button>
+          </form>
+          <p>Already have an account? <a routerLink="/login">Login</a></p>
+          </div>
+          </div> 

@@ -1,0 +1,98 @@
+
+    <!-- <div class="container">
+        <h2>📚 Issued Books</h2>
+        <table class="table">
+        <thead>
+        <tr>
+        <th>Book Title</th>
+        <th>Issued To</th>
+        <th>Issue Date</th>
+        <th>Due Date</th>
+        <th>Return Date</th>
+        <th>Fine Amount</th>
+        <th>Return</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let issue of bookIssues">
+        <td>{{ issue.title }}</td>  
+        <td>{{ issue.userName }}</td>  
+        <td>{{ issue.issueDate | date:'yyyy-MM-dd' }}</td>
+        <td>{{ issue.dueDate | date:'yyyy-MM-dd' }}</td>
+        <td>{{ issue.returnDate ? (issue.returnDate | date:'yyyy-MM-dd') : 'Not Returned' }}</td>
+        <td>{{ issue.fineAmount || '₹0' }}</td>
+        <td>
+        <input type="date" [(ngModel)]="returnDate[issue.issueId]" [disabled]="issue.returnDate">
+        <button (click)="returnBook(issue.issueId)" [disabled]="issue.returnDate">Return</button>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </div> -->
+
+        <!-- <div class="container">
+            <h2>📚 Issued Books</h2>
+            <input type="text" [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Search by username" class="search-box"/>
+            <table class="table">
+            <thead>
+            <tr>
+            <th>Book Title</th>
+            <th>Issued To</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>Fine Amount</th>
+            <th>Return</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let issue of filteredBookIssues">
+            <td>{{ issue.title }}</td>
+            <td>{{ issue.userName }}</td>
+            <td>{{ issue.issueDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ issue.dueDate | date:'yyyy-MM-dd' }}</td>
+            <td>{{ issue.returnDate ? (issue.returnDate | date:'yyyy-MM-dd') : 'Not Returned' }}</td>
+            <td>{{ issue.fineAmount || '₹0' }}</td>
+            <td>
+            <input type="date" [(ngModel)]="returnDate[issue.issueId]" [disabled]="issue.returnDate">
+            <button (click)="returnBook(issue.issueId)" [disabled]="issue.returnDate">Return</button>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            </div> -->
+
+            <div class="container">
+                <h2>📚 Issued Books</h2>
+                <!-- Search Box for Username -->
+                <div class="search-container">
+                <input type="text" [(ngModel)]="searchText" (input)="applyFilter()" placeholder="🔍 Search by username" class="search-box"/>
+                </div>
+                <table class="table">
+                <thead>
+                <tr>
+                <th>Book Title</th>
+                <th>Issued To</th>
+                <th>Issue Date</th>
+                <th>Due Date</th>
+                <th>Return Date</th>
+                <th>Fine Amount</th>
+                <th>Return</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let issue of filteredBookIssues">
+                <td>{{ issue.title }}</td>
+                <td>{{ issue.userName }}</td>
+                <td>{{ issue.issueDate | date:'yyyy-MM-dd' }}</td>
+                <td>{{ issue.dueDate | date:'yyyy-MM-dd' }}</td>
+                <td>{{ issue.returnDate ? (issue.returnDate | date:'yyyy-MM-dd') : 'Not Returned' }}</td>
+                <td>{{ issue.fineAmount || '₹0' }}</td>
+                <td>
+                <input type="date" [(ngModel)]="returnDate[issue.issueId]" [disabled]="issue.returnDate">
+                <button (click)="returnBook(issue.issueId)" [disabled]="issue.returnDate">Return</button>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                </div>
